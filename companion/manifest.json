@@ -1,0 +1,46 @@
+{
+	"$schema": "../node_modules/@companion-module/base/assets/manifest.schema.json",
+	"type": "connection",
+	"id": "rme-totalmix",
+	"name": "RME TotalMix FX",
+	"shortname": "TotalMix",
+	"description": "Control RME TotalMix FX through its bidirectional OSC interface",
+	"version": "0.0.0",
+	"license": "MIT",
+	"repository": "git+https://github.com/bitfocus/companion-module-rme-totalmix.git",
+	"bugs": "https://github.com/bitfocus/companion-module-rme-totalmix/issues",
+	"maintainers": [
+		{
+			"name": "Daniel Jocher",
+			"github": "thepoison606"
+		}
+	],
+	"runtime": {
+		"type": "node22",
+		"api": "nodejs-ipc",
+		"apiVersion": "0.0.0",
+		"entrypoint": "../dist/main.js"
+	},
+	"legacyIds": [],
+	"manufacturer": "RME",
+	"products": [
+		"TotalMix FX",
+		"Fireface UFX",
+		"Fireface UFX II",
+		"Fireface UFX III",
+		"Fireface UCX",
+		"Fireface UCX II",
+		"Fireface 802 FS",
+		"Babyface",
+		"Babyface Pro FS",
+		"Fireface UC",
+		"Digiface AES",
+		"Digiface Dante",
+		"Digiface Ravenna",
+		"HDSPe AIO Pro",
+		"HDSPe RayDAT",
+		"HDSPe MADI FX",
+		"HDSPe AES"
+	],
+	"keywords": ["Audio", "Mixer", "OSC"]
+}

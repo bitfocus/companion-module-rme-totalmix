@@ -1,0 +1,17 @@
+name: Companion Module Checks
+
+on:
+  push:
+
+jobs:
+  check:
+    if: ${{ !contains(github.repository, 'companion-module-template-') }}
+    name: Check module
+
+    permissions:
+      packages: read
+
+    uses: bitfocus/actions/.github/workflows/module-checks.yaml@main
+    # Set this to true temporarily when a downloadable CI package is useful.
+    # with:
+    #   upload-artifact: true

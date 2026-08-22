@@ -1,0 +1,58 @@
+name: Bug report
+description: Create a bug report to help us improve.
+labels:
+  - BUG
+title: '[BUG] '
+body:
+  - type: checkboxes
+    attributes:
+      label: Make sure you have updated to the latest version of the module
+      description: This may be a beta version of the module or may require updating Companion.
+      options:
+        - label: I have checked this on the latest version of the module
+          required: true
+  - type: checkboxes
+    attributes:
+      label: Is there an existing issue for this?
+      description: Please search for an existing report of the problem.
+      options:
+        - label: I have searched the existing issues
+          required: true
+  - type: textarea
+    attributes:
+      label: Describe the bug
+      description: Provide a clear and concise description. Screenshots are helpful.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Steps to reproduce
+      description: Describe the smallest sequence that reproduces the behavior.
+      placeholder: |
+        1. Configure ...
+        2. Run ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected behavior
+      description: Describe what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Environment
+      value: |
+        - OS:
+        - Companion version:
+        - Module version:
+        - TotalMix FX version:
+        - RME device and firmware version:
+      render: markdown
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Additional context
+      description: Add logs or any other useful context.

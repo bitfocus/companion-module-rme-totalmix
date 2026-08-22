@@ -1,0 +1,32 @@
+name: Feature request
+description: Request a new feature within this module.
+title: '[Feature]: '
+labels:
+  - enhancement
+body:
+  - type: checkboxes
+    attributes:
+      label: Make sure you have updated to the latest version of the module
+      description: This may be a beta version of the module or may require updating Companion.
+      options:
+        - label: I have checked this on the latest version of the module
+          required: true
+  - type: checkboxes
+    attributes:
+      label: Is there an existing issue for this?
+      description: Please search for similar feature requests.
+      options:
+        - label: I have searched the existing issues
+          required: true
+  - type: textarea
+    attributes:
+      label: Describe the feature
+      description: Explain clearly what the feature should do.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Use cases
+      description: Describe when and why this feature would be useful.
+    validations:
+      required: true
