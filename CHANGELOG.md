@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.0
+
+- First stable public release.
+
 ## 0.1.0
 
 - Initial release.

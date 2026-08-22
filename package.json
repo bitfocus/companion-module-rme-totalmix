@@ -1,6 +1,6 @@
 {
 	"name": "companion-module-rme-totalmix",
-	"version": "0.1.0",
+	"version": "1.0.0",
 	"description": "Bitfocus Companion module for RME TotalMix FX over OSC",
 	"main": "dist/main.js",
 	"files": [
