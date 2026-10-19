@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import { UpdatePresets } from '../dist/presets.js'
+import { UpdateFeedbacks } from '../dist/feedbacks.js'
 
 function createModuleStub() {
 	const capabilities = {
@@ -34,6 +35,32 @@ function createModuleStub() {
 	UpdatePresets(self)
 	return self
 }
+
+test('presets reference only options declared by their feedback definitions', () => {
+	for (const protocolMode of ['global', '1.96']) {
+		const self = createModuleStub()
+		self.config.protocolMode = protocolMode
+		self.setFeedbackDefinitions = (definitions) => {
+			self.feedbackDefinitions = definitions
+		}
+		UpdateFeedbacks(self)
+		UpdatePresets(self)
+		for (const preset of Object.values(self.presets)) {
+			const feedbacks = [
+				...(preset.feedbacks ?? []),
+				...(preset.localVariables ?? []).filter((variable) => variable.variableType === 'feedback'),
+			]
+			for (const feedback of feedbacks) {
+				const definition = self.feedbackDefinitions[feedback.feedbackId]
+				assert.ok(definition, `${protocolMode}: ${preset.name} references unknown feedback ${feedback.feedbackId}`)
+				const validKeys = new Set(definition.options.map((option) => option.id))
+				for (const key of Object.keys(feedback.options)) {
+					assert.ok(validKeys.has(key), `${protocolMode}: ${preset.name}/${feedback.feedbackId}: unknown option ${key}`)
+				}
+			}
+		}
+	}
+})
 
 test('Stream Deck Plus provides one editable fader without a separate Dim encoder', () => {
 	const self = createModuleStub()
@@ -214,7 +241,6 @@ test('preset catalog is concise and includes the first-priority controls', () =>
 		row: 'input',
 		inputSource: 0,
 		playbackSource: 0,
-		destination: 0,
 		output: 0,
 		side: 'either',
 		threshold: -1,

@@ -35,13 +35,17 @@ This module controls RME TotalMix FX through its bidirectional OSC interfaces. T
 
 ## TotalMix setup
 
+Enable **Options → Enable OSC Control** in TotalMix FX. This global switch must be enabled in addition to activating an individual remote controller; otherwise TotalMix does not open its OSC receive port and Companion stays on Connecting.
+
 In **TotalMix FX → Options → Settings → OSC** configure one remote controller:
 
 - Remote Controller: enabled
-- Host: the IP address of the Companion computer (`127.0.0.1` when both run on the same Mac)
-- Outgoing port / TotalMix receive port: `7001`
-- Incoming port / Companion feedback port: `9001`
+- Host: the IP address of the Companion computer (`127.0.0.1` when both run on the same Windows PC or Mac)
+- TotalMix incoming port / Companion TotalMix receive port: `7001`
+- TotalMix outgoing port / Companion feedback port: `9001`
 - Compatibility (Mode): `Global OSC` for TotalMix FX 2.1 or newer
+
+Set **Remote Controller Address → IP or Host Name** explicitly. On Windows, Global OSC does not broadcast feedback when this address is blank, so Companion can remain on Connecting even when OSC is enabled.
 
 Open **Details** for that controller and enable **Send changes**, **Send status**, and **Re-send received**. The last option lets TotalMix immediately confirm commands received from Companion; this module never echoes feedback, so it does not create an OSC loop. **Send all data on start** is unnecessary because the module requests its own initial state. Enable level transmission only when meter feedbacks are needed, and use TotalMix's bandwidth limiter for large interfaces; 500 kByte/s is a practical starting point.
 
@@ -52,6 +56,8 @@ For TotalMix FX 1.96 through 2.03, select **1.96 or newer** in Companion and the
 Use the same values in the Companion connection configuration.
 
 Only one process can normally bind the feedback port. Disable any Generic OSC Companion connection listening on port `9001`, or allocate a different TotalMix remote/port pair to this module.
+
+On Windows, `netstat -ano -p udp` should show TotalMix listening on `7001` and Companion listening on `9001` for the default configuration. If only `9001` is present, first check **Enable OSC Control** and whether the configured TotalMix remote is enabled. If both ports are present but feedback is missing, check the remote's destination IP, the selected protocol on both sides, and Windows Firewall permissions.
 
 ## Why the return channel matters
 

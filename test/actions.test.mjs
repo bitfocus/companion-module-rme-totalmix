@@ -323,7 +323,7 @@ test('target-bound encoder actions do not expose fallback mixer selectors', () =
 		'preset_set_autoset',
 	]) {
 		const optionIds = self.definitions[id].options.map((option) => option.id)
-		assert.ok(optionIds.includes('target'), `${id} must contain the hidden target binding`)
+		assert.ok(optionIds.includes('target'), `${id} must contain the shared target binding`)
 		assert.ok(
 			optionIds.every((optionId) => !forbidden.has(optionId)),
 			`${id} contains a fallback selector`,

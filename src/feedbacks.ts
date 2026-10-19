@@ -253,16 +253,17 @@ export function UpdateFeedbacks(self: ModuleInstance): void {
 		choices: outputChoices(choiceProfile),
 		isVisibleExpression: "$(options:row) == 'output'",
 	}
-	const hiddenPresetTargetOption = {
+	// Hidden options resolve to their defaults in Companion. Keep these fields
+	// visible so target expressions and the selected value/state reach callbacks.
+	const presetTargetOption = {
 		id: 'target' as const,
 		type: 'textinput' as const,
 		label: 'Encoder preset target',
 		default: '',
 		useVariables: true,
 		allowInvalidValues: true,
-		isVisibleExpression: 'false',
 	}
-	const hiddenPresetValueTypeOption = {
+	const presetValueTypeOption = {
 		id: 'valueType' as const,
 		type: 'dropdown' as const,
 		label: 'Encoder preset value',
@@ -276,9 +277,8 @@ export function UpdateFeedbacks(self: ModuleInstance): void {
 			{ id: 'pan', label: 'Pan/balance value' },
 			{ id: 'pan_display', label: 'Pan/balance display' },
 		],
-		isVisibleExpression: 'false',
 	}
-	const hiddenPresetStateTypeOption = {
+	const presetStateTypeOption = {
 		id: 'stateType' as const,
 		type: 'dropdown' as const,
 		label: 'Encoder preset state',
@@ -288,7 +288,6 @@ export function UpdateFeedbacks(self: ModuleInstance): void {
 			{ id: 'autoset', label: 'AutoSet' },
 			{ id: 'pan_centered', label: 'Pan centered' },
 		],
-		isVisibleExpression: 'false',
 	}
 	const controlRoomOption = {
 		id: 'control' as const,
@@ -870,7 +869,7 @@ export function UpdateFeedbacks(self: ModuleInstance): void {
 		preset_value: {
 			name: 'Encoder preset value (internal)',
 			type: 'value',
-			options: [hiddenPresetTargetOption, hiddenPresetValueTypeOption],
+			options: [presetTargetOption, presetValueTypeOption],
 			callback: ({ options }) => {
 				const target = presetTargetFromOptions(options)
 				if (!target) return ''
@@ -944,7 +943,7 @@ export function UpdateFeedbacks(self: ModuleInstance): void {
 			name: 'Encoder preset state (internal)',
 			type: 'boolean',
 			defaultStyle: {},
-			options: [hiddenPresetTargetOption, hiddenPresetStateTypeOption],
+			options: [presetTargetOption, presetStateTypeOption],
 			callback: ({ options }) => {
 				const target = presetTargetFromOptions(options)
 				if (!target) return false

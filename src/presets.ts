@@ -495,7 +495,14 @@ export function UpdatePresets(self: ModuleInstance): void {
 		[
 			{
 				feedbackId: 'channel_level_threshold',
-				options: { ...baseInputTarget, side: 'either', threshold: -1 },
+				options: {
+					row: 'input',
+					inputSource: input,
+					playbackSource: playback,
+					output,
+					side: 'either',
+					threshold: -1,
+				},
 				style: { bgcolor: tmRedDark, color: tmRed },
 			},
 		],

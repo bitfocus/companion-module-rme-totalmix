@@ -4,6 +4,8 @@ This module controls TotalMix FX through OSC and listens to TotalMix's return st
 
 ## Connection setup
 
+First enable **Options → Enable OSC Control** in TotalMix FX. This global switch is separate from enabling an individual OSC remote. If it is off, TotalMix does not listen for OSC and Companion stays on Connecting.
+
 Configure a TotalMix OSC remote and this Companion connection with matching ports. The default same-computer setup is:
 
 | Setting                 | Value                       |
@@ -14,6 +16,12 @@ Configure a TotalMix OSC remote and this Companion connection with matching port
 | TotalMix version        | `2.1 or newer (Global OSC)` |
 
 <br>
+
+In TotalMix, set the remote's **incoming** port to `7001` and **outgoing** port to `9001`. Set the remote destination to `127.0.0.1` when both applications run on the same Windows PC or Mac, and enable the remote controller.
+
+Do not leave **Remote Controller Address → IP or Host Name** blank. Windows Global OSC does not broadcast feedback without an explicit destination, even when the OSC controller is enabled.
+
+On Windows, `netstat -ano -p udp` should show listeners on both ports. If only Companion's `9001` is present, check TotalMix's global **Enable OSC Control** switch and the remote's enabled state. If both are present, check the destination IP, protocol mode, and firewall permissions.
 
 ### Recommended Global OSC settings
 

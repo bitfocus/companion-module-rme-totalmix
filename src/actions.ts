@@ -262,14 +262,15 @@ export function UpdateActions(self: ModuleInstance): void {
 			{ id: 'off', label: 'Off' },
 		],
 	}
-	const hiddenPresetTargetOption = {
+	// Companion replaces hidden options with their defaults before callbacks run.
+	// The shared target must stay visible so its local-variable expression is evaluated.
+	const presetTargetOption = {
 		id: 'target' as const,
 		type: 'textinput' as const,
 		label: 'Encoder preset target',
 		default: '',
 		useVariables: true,
 		allowInvalidValues: true,
-		isVisibleExpression: 'false',
 	}
 	const capabilityInputOption = (indices: number[]) => ({
 		id: 'input' as const,
@@ -636,7 +637,7 @@ export function UpdateActions(self: ModuleInstance): void {
 		preset_adjust_fader: {
 			name: 'Encoder preset - adjust fader',
 			options: [
-				hiddenPresetTargetOption,
+				presetTargetOption,
 				unitOption,
 				{ id: 'amount', type: 'number', label: 'Signed step', default: 1, min: -65, max: 65, step: 0.1 },
 			],
@@ -657,7 +658,7 @@ export function UpdateActions(self: ModuleInstance): void {
 		preset_adjust_pan: {
 			name: 'Encoder preset - adjust pan/balance',
 			options: [
-				hiddenPresetTargetOption,
+				presetTargetOption,
 				{ id: 'amount', type: 'number', label: 'Signed step', default: 5, min: -200, max: 200, step: 1 },
 			],
 			callback: async ({ options }) => {
@@ -675,7 +676,7 @@ export function UpdateActions(self: ModuleInstance): void {
 		preset_set_pan: {
 			name: 'Encoder preset - set pan/balance',
 			options: [
-				hiddenPresetTargetOption,
+				presetTargetOption,
 				{
 					id: 'value',
 					type: 'number',
@@ -700,7 +701,7 @@ export function UpdateActions(self: ModuleInstance): void {
 		},
 		preset_set_mute: {
 			name: 'Encoder preset - mute',
-			options: [hiddenPresetTargetOption, operationOption],
+			options: [presetTargetOption, operationOption],
 			callback: async ({ options }) => {
 				const presetTarget = requiredPresetTarget(options)
 				if (presetTarget.row === 'output') {
@@ -718,7 +719,7 @@ export function UpdateActions(self: ModuleInstance): void {
 			? {
 					name: 'Encoder preset - adjust input gain',
 					options: [
-						hiddenPresetTargetOption,
+						presetTargetOption,
 						{
 							id: 'amount',
 							type: 'number',
@@ -743,7 +744,7 @@ export function UpdateActions(self: ModuleInstance): void {
 		preset_set_autoset: capabilities.autosetChannels.length
 			? {
 					name: 'Encoder preset - AutoSet gain',
-					options: [hiddenPresetTargetOption, operationOption],
+					options: [presetTargetOption, operationOption],
 					callback: async ({ options }) => {
 						const target = requiredPresetTarget(options)
 						if (target.row !== 'input') throw new Error('Encoder AutoSet target is not a hardware input')

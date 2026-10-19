@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.1
+
+- Fix Stream Deck + encoder actions failing with "Encoder preset target is unavailable" in Companion 5.0.4.
+- Restore encoder channel names, fader/gain/pan values, ring gauges, and state feedback by preserving shared target and value/state options during Companion's option evaluation.
+- Remove the unsupported feedback option from the Input peak/clip indicator preset.
+- Clarify Windows Global OSC setup, including the global OSC switch, explicit remote destination address, and incoming/outgoing port mapping.
+
 ## 1.0.0
 
 - First stable public release.
